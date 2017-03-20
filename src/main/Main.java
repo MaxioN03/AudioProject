@@ -91,8 +91,7 @@ public class Main {
                 System.out.println(searchSong());
                 break;
             case 9:
-                System.out.println(getCommonLengthLong());
-                System.out.println(Song.getLengthStr(getCommonLengthLong()));
+                showCommonLength();
                 break;
             case 0:
                 System.exit(0);
@@ -261,7 +260,7 @@ public class Main {
     }
 
     //todo рефактор switch и поиск по продолжительности
-    public List<Song> searchSong(){
+    public List<Song> searchSong() {
         LinkedList<Song> result = new LinkedList<Song>();
         System.out.println("Выберите характеристику поиска:\n" +
                 "1. Автор песни\n" +
@@ -289,8 +288,8 @@ public class Main {
             case 1:
                 System.out.println("Введите поисковый запрос... ");
                 query = in.next();
-                for(Song song: songListCommon){
-                    if(song.getAuthor().toLowerCase().contains(query.toLowerCase())){
+                for (Song song : songListCommon) {
+                    if (song.getAuthor().toLowerCase().contains(query.toLowerCase())) {
                         result.add(song);
                     }
                 }
@@ -300,8 +299,8 @@ public class Main {
                 System.out.println("Введите поисковый запрос... ");
                 query = in.next();
                 query = in.nextLine();
-                for(Song song: songListCommon){
-                    if(song.getTitle().toLowerCase().contains(query.toLowerCase())){
+                for (Song song : songListCommon) {
+                    if (song.getTitle().toLowerCase().contains(query.toLowerCase())) {
                         result.add(song);
                     }
                 }
@@ -311,8 +310,8 @@ public class Main {
                 System.out.println("Введите поисковый запрос... ");
                 query = in.next();
                 query = in.nextLine();
-                for(Song song: songListCommon){
-                    if(song.getGenre().toLowerCase().contains(query.toLowerCase())){
+                for (Song song : songListCommon) {
+                    if (song.getGenre().toLowerCase().contains(query.toLowerCase())) {
                         result.add(song);
                     }
                 }
@@ -323,11 +322,21 @@ public class Main {
     }
 
     //todo Сделать выбор конкретного CD
-    public long getCommonLengthLong(){
-        long result=0;
-        for(Song song: songListCommon){
-            result+=song.getLengthLong();
+    public long getCommonLengthLong() {
+        long result = 0;
+        for (Song song : songListCommon) {
+            result += song.getLengthLong();
         }
         return result;
+    }
+
+    public void showCommonLength() {
+        //Общая продолжительность
+        System.out.println("Общая продолжительность на всех CD: " + Song.getLengthStr(getCommonLengthLong()));
+        //Вывод для каждого диска
+        System.out.println("Продолжительность на каждом диске: ");
+        for (int i = 0; i < cdListCommon.size(); i++) {
+            System.out.println(cdListCommon.get(i).toString() + " - " + Song.getLengthStr(cdListCommon.get(i).getLength()));
+        }
     }
 }

@@ -65,12 +65,13 @@ public class CD extends Disk {
     public void addSong(Song song) {
         songList.add(song);
     }
-    public LinkedList<Song> getSongsFromCD(){
+
+    public LinkedList<Song> getSongsFromCD() {
         LinkedList<Song> songs = new LinkedList<Song>();
 
         Iterator it = songList.iterator();
         while (it.hasNext()) {
-            songs.add((Song)it.next());
+            songs.add((Song) it.next());
         }
         return songs;
     }
@@ -93,5 +94,13 @@ public class CD extends Disk {
         CD cd = new CD(capacity, name);
 
         return cd;
+    }
+
+    public long getLength(){
+        int result = 0;
+        for(Song song: songList){
+            result+=song.getLengthLong();
+        }
+        return result;
     }
 }
