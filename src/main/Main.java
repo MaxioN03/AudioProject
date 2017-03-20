@@ -1,8 +1,10 @@
 package main;
 
 import audio.Song;
+import audio.SongList;
 import audio.comparatorsSong.*;
 import disk.CD;
+import disk.CDList;
 
 import java.util.*;
 
@@ -10,12 +12,13 @@ import java.util.*;
  * Created by Егор on 18.03.17.
  */
 public class Main {
-    private List<Song> songListCommon = new LinkedList<Song>();
-    private List<CD> cdListCommon = new LinkedList<CD>();
+    private LinkedList<Song> songListCommon = new LinkedList<Song>();
+    private LinkedList<CD> cdListCommon = new LinkedList<CD>();
     private final int MAIN_MENU_ITEMS = 10;
 
     public static void main(String[] args) {
 
+        //runner
         Main main = new Main();
         while (true) {
             main.showMainMenu();
@@ -66,17 +69,16 @@ public class Main {
     public void doMainMenu(int choise) {
         switch (choise) {
             case 1:
-                addSongInCommon();
-
+                SongList.addSongFromConsole(songListCommon);
                 break;
             case 2:
-                cdListCommon.add(CD.addCDFromConsole());
+                CDList.addCDFromConsole(cdListCommon);
                 break;
             case 3:
-                showSongListCommon();
+                SongList.showSongListCommon(songListCommon);
                 break;
             case 4:
-                showCDListCommon();
+                CDList.showCDList(cdListCommon);
                 break;
             case 5:
                 addSongToCD();
@@ -102,66 +104,20 @@ public class Main {
         }
     }
 
-    public void addSongInCommon() {
-        Song song = Song.addSongFromConsole();
-        int i = 0;
-        Iterator it = songListCommon.iterator();
-        while (it.hasNext()) {
-            if (it.next().equals(song)) {
-                i++;
-            }
-        }
-        if (i == 0) {
-            songListCommon.add(song);
-            System.out.println("Аудиозапись успешно добавлена");
-        } else {
-            System.out.println("Ошибка! Такая аудиозапись уже существует");
-        }
-    }
-
-    public void showSongListCommon() {
-        if (songListCommon.size() > 0) {
-            Iterator it = songListCommon.iterator();
-            int i = 1;
-            System.out.println("Список всех аудиозаписей:");
-            while (it.hasNext()) {
-                System.out.println(i + ". " + it.next().toString());
-                i++;
-            }
-        } else {
-            System.out.println("Аудиозаписей нет\n");
-        }
-    }
-
-    public void showCDListCommon() {
-        if (cdListCommon.size() > 0) {
-            Iterator it = cdListCommon.iterator();
-            int i = 1;
-            System.out.println("Список всех CD:");
-            while (it.hasNext()) {
-                System.out.println(i + ". " + it.next().toString());
-                i++;
-            }
-            System.out.println("\n");
-        } else {
-            System.out.println("CD нет\n");
-        }
-    }
-
     public void addSongToCD() {
         if (isEmptySongListOrCDList()) {
             System.out.println("Нету доступных CD или аудиозаписей");
         } else {
             //Выбираем CD
             System.out.println("Выберите CD для записи...");
-            showCDListCommon();
+            CDList.showCDList(cdListCommon);
 
             Scanner in = new Scanner(System.in);
             int choiseCD = getCDChoise();
 
             //Выбираем аудиозапись
             System.out.println("Выберите аудиозапись для записи...");
-            showSongListCommon();
+            SongList.showSongListCommon(songListCommon);
             int choiseSong = 0;
             while (choiseSong == 0) {
                 try {
@@ -186,14 +142,13 @@ public class Main {
 
     public void showCD() {
         System.out.println("Выберите CD для просмотра:");
-        showCDListCommon();
+        CDList.showCDList(cdListCommon);
 
         Scanner in = new Scanner(System.in);
         int choiseCD = getCDChoise();
 
         System.out.println("Список аудиозаписей для CD \"" + cdListCommon.get(choiseCD).getName() + "\":\n");
         System.out.println(cdListCommon.get(choiseCD).getSongsFromCD());
-
     }
 
     public int getCDChoise() {
@@ -238,16 +193,16 @@ public class Main {
         }
         switch (choise) {
             case 1:
-                sortBy(songListCommon, new SortedByAuthor());
+                Collections.sort(songListCommon, new SortedByAuthor());
                 break;
             case 2:
-                sortBy(songListCommon, new SortedByTitle());
+                Collections.sort(songListCommon, new SortedByTitle());
                 break;
             case 3:
-                sortBy(songListCommon, new SortedByLength());
+                Collections.sort(songListCommon, new SortedByLength());
                 break;
             case 4:
-                sortBy(songListCommon, new SortedByGenre());
+                Collections.sort(songListCommon, new SortedByGenre());
             case 0:
                 break;
         }
@@ -255,11 +210,7 @@ public class Main {
 
     }
 
-    private void sortBy(List<Song> songListCommon, Comparator comp) {
-        Collections.sort(songListCommon, comp);
-    }
-
-    //todo рефактор switch и поиск по продолжительности
+    //todo поиск по продолжительности
     public List<Song> searchSong() {
         LinkedList<Song> result = new LinkedList<Song>();
         System.out.println("Выберите характеристику поиска:\n" +
@@ -283,10 +234,10 @@ public class Main {
         }
 
         String query;
-
+        String queryStr = "Введите поисковый запрос... ";
         switch (choise) {
             case 1:
-                System.out.println("Введите поисковый запрос... ");
+                System.out.println(queryStr);
                 query = in.next();
                 for (Song song : songListCommon) {
                     if (song.getAuthor().toLowerCase().contains(query.toLowerCase())) {
@@ -295,10 +246,9 @@ public class Main {
                 }
                 break;
             case 2:
-                //название
-                System.out.println("Введите поисковый запрос... ");
+                //todo название
+                System.out.println(queryStr);
                 query = in.next();
-                query = in.nextLine();
                 for (Song song : songListCommon) {
                     if (song.getTitle().toLowerCase().contains(query.toLowerCase())) {
                         result.add(song);
@@ -307,9 +257,8 @@ public class Main {
                 break;
             case 3:
                 //жанр
-                System.out.println("Введите поисковый запрос... ");
+                System.out.println(queryStr);
                 query = in.next();
-                query = in.nextLine();
                 for (Song song : songListCommon) {
                     if (song.getGenre().toLowerCase().contains(query.toLowerCase())) {
                         result.add(song);
@@ -321,22 +270,13 @@ public class Main {
         return result;
     }
 
-    //todo Сделать выбор конкретного CD
-    public long getCommonLengthLong() {
-        long result = 0;
-        for (Song song : songListCommon) {
-            result += song.getLengthLong();
-        }
-        return result;
-    }
-
     public void showCommonLength() {
         //Общая продолжительность
-        System.out.println("Общая продолжительность на всех CD: " + Song.getLengthStr(getCommonLengthLong()));
+        System.out.println("Общая продолжительность на всех CD: " + Song.getLengthStr(SongList.getCommonLengthLong(songListCommon)));
         //Вывод для каждого диска
         System.out.println("Продолжительность на каждом диске: ");
-        for (int i = 0; i < cdListCommon.size(); i++) {
-            System.out.println(cdListCommon.get(i).toString() + " - " + Song.getLengthStr(cdListCommon.get(i).getLength()));
+        for(CD cd: cdListCommon){
+            System.out.println(cd.toString() + " - " + Song.getLengthStr(cd.getLength()));
         }
     }
 }

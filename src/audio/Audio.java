@@ -12,12 +12,6 @@ public class Audio {
     private String length;
     private int bitrate;
 
-    public Audio(){
-        title = "title";
-        format = "format";
-        length = "length";
-        bitrate = 0;
-    }
     public Audio(String title, String format, String length, int bitrate){
         this.title = title;
         this. format = format;
@@ -122,14 +116,7 @@ public class Audio {
             }
         }
 
-
-
-        Audio audio = new Audio();
-        audio.setTitle(title);
-        audio.setFormat(format);
-        audio.setLength(length);
-        audio.setBitrate(bitrate);
-        in.close();
+        Audio audio = new Audio(title,format,length,bitrate);
         return audio;
     }
 }
