@@ -95,13 +95,8 @@ public class Audio {
         String title = in.nextLine();
         System.out.println("Введите формат... ");
         String format = in.nextLine();
-        //todo Парсить регуляркой
         System.out.println("Введите продолжительность... ");
         String length = in.nextLine();
-
-
-
-
         System.out.println("Введите битрейт... ");
         int bitrate = 0;
         while(bitrate == 0 ){

@@ -69,7 +69,9 @@ public class Main {
     public void doMainMenu(int choise) {
         switch (choise) {
             case 1:
-                SongList.addSongFromConsole(songListCommon);
+                SongList.addSongFromTXT(songListCommon, "resources/txt/songs.txt");
+                SongList.addSongFromXML(songListCommon, "resources/xml/songs.xml");
+                //SongList.addSongFromConsole(songListCommon);
                 break;
             case 2:
                 CDList.addCDFromConsole(cdListCommon);
@@ -246,9 +248,10 @@ public class Main {
                 }
                 break;
             case 2:
-                //todo название
+
                 System.out.println(queryStr);
                 query = in.next();
+                query = in.nextLine();
                 for (Song song : songListCommon) {
                     if (song.getTitle().toLowerCase().contains(query.toLowerCase())) {
                         result.add(song);
@@ -256,14 +259,33 @@ public class Main {
                 }
                 break;
             case 3:
-                //жанр
-                System.out.println(queryStr);
-                query = in.next();
+                //Продолжительность
+                System.out.println("Введите минимальную продолжительность... ");
+                int lengthMin = -1;
+                while (lengthMin == -1) {
+                    try {
+                        lengthMin = in.nextInt();
+                    } catch (InputMismatchException e) {
+                        System.out.println("Проверьте правильность ввода минимальной продолжительности и повторите попытку");
+                        in.next();
+                    }
+                }
+                System.out.println("Введите максмальную продолжительность... ");
+                int lengthMax = -1;
+                while (lengthMax == -1) {
+                    try {
+                        lengthMax = in.nextInt();
+                    } catch (InputMismatchException e) {
+                        System.out.println("Проверьте правильность ввода максимальной продолжительности и повторите попытку");
+                        in.next();
+                    }
+                }
                 for (Song song : songListCommon) {
-                    if (song.getGenre().toLowerCase().contains(query.toLowerCase())) {
+                    if (song.getLengthLong() >= lengthMin && song.getLengthLong() <= lengthMax) {
                         result.add(song);
                     }
                 }
+                break;
             case 0:
                 break;
         }
@@ -275,7 +297,7 @@ public class Main {
         System.out.println("Общая продолжительность на всех CD: " + Song.getLengthStr(SongList.getCommonLengthLong(songListCommon)));
         //Вывод для каждого диска
         System.out.println("Продолжительность на каждом диске: ");
-        for(CD cd: cdListCommon){
+        for (CD cd : cdListCommon) {
             System.out.println(cd.toString() + " - " + Song.getLengthStr(cd.getLength()));
         }
     }

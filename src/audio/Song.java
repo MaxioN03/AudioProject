@@ -44,6 +44,13 @@ public class Song extends Audio {
         return result;
     }
 
+    public static long getLengthLong(String str) {
+        final int SECONDS_IN_MINUTE = 60;
+        String[] lengthString = str.split(":");
+        long result = Integer.parseInt(lengthString[0]) * SECONDS_IN_MINUTE + Integer.parseInt(lengthString[1]);
+        return result;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
