@@ -14,15 +14,15 @@ import java.util.*;
 public class Main {
     private LinkedList<Song> songListCommon = new LinkedList<Song>();
     private LinkedList<CD> cdListCommon = new LinkedList<CD>();
-    private final int MAIN_MENU_ITEMS = 10;
+
 
     public static void main(String[] args) {
-
+        final int MAIN_MENU_ITEMS = 7;
         //runner
         Main main = new Main();
         while (true) {
             main.showMainMenu();
-            main.doMainMenu(main.chooseMenu());
+            main.doMainMenu(main.chooseMenu(MAIN_MENU_ITEMS));
         }
     }
 
@@ -33,22 +33,18 @@ public class Main {
     }
 
     //Изменил меню - измени MAIN_MENU_ITEMS!
-    //todo Многоуровневое меню для добавления
     public void showMainMenu() {
         System.out.println("Выберите пункт меню:\n" +
                 "1. Добавить аудиозапись\n" +
                 "2. Добавить CD\n" +
-                "3. Вывод всех аудиозаписей\n" +
-                "4. Вывод всех CD\n" +
-                "5. Добавить аудиозапись на CD\n" +
-                "6. Просмотреть CD\n" +
-                "7. Сортировка аудиозаписей\n" +
-                "8. Поиск по аудизаписям\n" +
-                "9. Вывод продолжительности всех аудиозаписей\n" +
+                "3. Просмотреть...\n" +
+                "4. Записать аудиозапись на CD\n" +
+                "5. Сортировка аудиозаписей\n" +
+                "6. Поиск по аудизаписям\n" +
                 "0. Выход\n");
     }
 
-    public int chooseMenu() {
+    public int chooseMenu(int max) {
         Scanner in = new Scanner(System.in);
         int choise = -1;
         while (choise == -1) {
@@ -58,7 +54,7 @@ public class Main {
                 System.out.println("Проверьте правильность ввода и повторите попытку");
                 in.next();
             }
-            if (choise < 0 || choise > MAIN_MENU_ITEMS) {
+            if (choise < 0 || choise > max) {
                 System.out.println("Проверьте правильность ввода и повторите попытку");
                 choise = -1;
             }
@@ -69,33 +65,22 @@ public class Main {
     public void doMainMenu(int choise) {
         switch (choise) {
             case 1:
-                SongList.addSongFromTXT(songListCommon, "resources/txt/songs.txt");
-                SongList.addSongFromXML(songListCommon, "resources/xml/songs.xml");
-                //SongList.addSongFromConsole(songListCommon);
+                addSongMenu();
                 break;
             case 2:
                 CDList.addCDFromConsole(cdListCommon);
                 break;
             case 3:
-                SongList.showSongListCommon(songListCommon);
+                showMenu();
                 break;
             case 4:
-                CDList.showCDList(cdListCommon);
-                break;
-            case 5:
                 addSongToCD();
                 break;
-            case 6:
-                showCD();
-                break;
-            case 7:
+            case 5:
                 sortSong();
                 break;
-            case 8:
-                System.out.println(searchSong());
-                break;
-            case 9:
-                showCommonLength();
+            case 6:
+                searchSong();
                 break;
             case 0:
                 System.exit(0);
@@ -103,6 +88,54 @@ public class Main {
             default:
                 System.out.println("Неверное значение");
                 break;
+        }
+    }
+
+    private void showMenu() {
+        System.out.println("Выберите, что надо просмотреть:\n" +
+                "1.Все аудиозаписи\n" +
+                "2.Все CD\n" +
+                "3.Конкретный CD\n" +
+                "4.Продолжительность аудио" +
+                "0.Выход\n");
+        switch (chooseMenu(4)) {
+            case 1:
+                SongList.showSongListCommon(songListCommon);
+                break;
+            case 2:
+                CDList.showCDList(cdListCommon);
+                break;
+            case 3:
+                showCD();
+                break;
+            case 4:
+                showCommonLength();;
+                break;
+            case 0:
+                break;
+
+        }
+    }
+
+    private void addSongMenu() {
+        System.out.println("Выберите способ добавления:\n" +
+                "1.Через консоль\n" +
+                "2.Чтение из текстовго файла\n" +
+                "3.Чтение из XML-файла\n" +
+                "0.Назад\n");
+        switch (chooseMenu(3)) {
+            case 1:
+                SongList.addSongFromConsole(songListCommon);
+                break;
+            case 2:
+                SongList.addSongFromTXT(songListCommon, "resources/txt/songs.txt");
+                break;
+            case 3:
+                SongList.addSongFromXML(songListCommon, "resources/xml/songs.xml");
+                break;
+            case 0:
+                break;
+
         }
     }
 
@@ -212,7 +245,7 @@ public class Main {
 
     }
 
-    //todo поиск по продолжительности
+    //todo ввод продолжительности как мм:сс
     public List<Song> searchSong() {
         LinkedList<Song> result = new LinkedList<Song>();
         System.out.println("Выберите характеристику поиска:\n" +
