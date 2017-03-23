@@ -5,42 +5,47 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import static audio.SongConstants.repeatEntering;
+import static disk.CDConstants.addingCD;
+import static disk.CDConstants.allCD;
+import static disk.CDConstants.noCD;
+
 /**
  * Created by Егор on 20.03.17.
  */
+
+//Класс для работы со списком CD
 public class CDList {
+
     public static void showCDList(LinkedList<CD> cdList) {
         if (cdList.size() > 0) {
-            Iterator it = cdList.iterator();
             int i = 1;
-            System.out.println("Список всех CD:");
-            while (it.hasNext()) {
-                System.out.println(i + ". " + it.next().toString());
+            System.out.println(allCD);
+            for(CD cd: cdList){
+                System.out.println(i + ". " + cd.toString());
                 i++;
             }
             System.out.println("\n");
         } else {
-            System.out.println("CD нет\n");
+            System.out.println(noCD);
         }
     }
 
     public static void addCDFromConsole(LinkedList<CD> cdList) {
         Scanner in = new Scanner(System.in);
-        System.out.println("Введите навзание CD... ");
+        System.out.println(addingCD[0]);
         String name = in.nextLine();
-        System.out.println("Введите объём памяти (Мб)... ");
+        System.out.println(addingCD[1]);
         int capacity = 0;
         while (capacity == 0) {
             try {
                 capacity = in.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println("Проверьте правильность ввода объёма памяти и повторите попытку");
+                System.out.println(repeatEntering);
                 in.next();
             }
         }
 
         cdList.add(new CD(capacity, name));
-
-
     }
 }

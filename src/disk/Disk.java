@@ -34,6 +34,13 @@ public abstract class Disk {
     }
 
     @Override
+    public int hashCode() {
+        int result = capacity;
+        result = 31 * result + name.hashCode();
+        return result;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Disk)) return false;
@@ -45,9 +52,10 @@ public abstract class Disk {
     }
 
     @Override
-    public int hashCode() {
-        int result = capacity;
-        result = 31 * result + name.hashCode();
-        return result;
+    public String toString() {
+        return "Disk{" +
+                "capacity=" + capacity +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

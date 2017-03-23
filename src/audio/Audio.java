@@ -58,6 +58,15 @@ public class Audio {
     }
 
     @Override
+    public int hashCode() {
+        int result = title.hashCode();
+        result = 31 * result + format.hashCode();
+        result = 31 * result + length.hashCode();
+        result = 31 * result + bitrate;
+        return result;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -68,15 +77,6 @@ public class Audio {
         if (!title.equals(audio.title)) return false;
         if (!format.equals(audio.format)) return false;
         return length.equals(audio.length);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = title.hashCode();
-        result = 31 * result + format.hashCode();
-        result = 31 * result + length.hashCode();
-        result = 31 * result + bitrate;
-        return result;
     }
 
     @Override

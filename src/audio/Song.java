@@ -7,6 +7,8 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static audio.SongConstants.SECONDS_IN_MINUTE;
+
 /**
  * Created by Егор on 17.03.17.
  */
@@ -38,16 +40,22 @@ public class Song extends Audio {
     }
 
     public long getLengthLong() {
-        final int SECONDS_IN_MINUTE = 60;
         String[] lengthString = this.getLength().split(":");
         long result = Integer.parseInt(lengthString[0]) * SECONDS_IN_MINUTE + Integer.parseInt(lengthString[1]);
         return result;
     }
 
     public static long getLengthLong(String str) {
-        final int SECONDS_IN_MINUTE = 60;
         String[] lengthString = str.split(":");
         long result = Integer.parseInt(lengthString[0]) * SECONDS_IN_MINUTE + Integer.parseInt(lengthString[1]);
+        return result;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + author.hashCode();
+        result = 31 * result + genre.hashCode();
         return result;
     }
 
@@ -64,20 +72,12 @@ public class Song extends Audio {
     }
 
     @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + author.hashCode();
-        result = 31 * result + genre.hashCode();
-        return result;
-    }
-
-    @Override
     public String toString() {
         return author + " - " + getTitle() + "(" + getLength() + ")";
     }
 
+    //Возвращает строку с продоллжительность песни в виде мм:сс
     public static String getLengthStr(long lengthLong) {
-        final int SECONDS_IN_MINUTE = 60;
         long hours = lengthLong / SECONDS_IN_MINUTE;
         int minutes = (int) lengthLong % SECONDS_IN_MINUTE;
         String result = hours + ":";

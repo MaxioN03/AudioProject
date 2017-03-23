@@ -24,6 +24,41 @@ public class CD extends Disk {
         this.songList = songList;
     }
 
+    public LinkedList<Song> getSongsFromCD() {
+        LinkedList<Song> songs = new LinkedList<Song>();
+
+        for (Song song : songList) {
+            songs.add(song);
+        }
+        return songs;
+    }
+
+    public long getLength() {
+        int result = 0;
+        for (Song song : songList) {
+            result += song.getLengthLong();
+        }
+        return result;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (songList != null ? songList.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CD)) return false;
+        if (!super.equals(o)) return false;
+
+        CD cd = (CD) o;
+
+        return songList != null ? songList.equals(cd.songList) : cd.songList == null;
+    }
+
     @Override
     public String toString() {
         return "CD:" +
@@ -34,21 +69,5 @@ public class CD extends Disk {
         songList.add(song);
     }
 
-    public LinkedList<Song> getSongsFromCD() {
-        LinkedList<Song> songs = new LinkedList<Song>();
 
-        Iterator it = songList.iterator();
-        while (it.hasNext()) {
-            songs.add((Song) it.next());
-        }
-        return songs;
-    }
-
-    public long getLength(){
-        int result = 0;
-        for(Song song: songList){
-            result+=song.getLengthLong();
-        }
-        return result;
-    }
 }

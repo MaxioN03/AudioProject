@@ -1,6 +1,5 @@
 package audio;
 
-import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -11,7 +10,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -20,24 +18,28 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static audio.SongConstants.*;
+
 /**
  * Created by Егор on 20.03.17.
  */
+
+//Класс для работы со списком Song
 public class SongList {
     public static void showSongListCommon(LinkedList<Song> songList) {
         if (songList.size() > 0) {
-            Iterator it = songList.iterator();
             int i = 1;
             System.out.println("Список всех аудиозаписей:");
-            while (it.hasNext()) {
-                System.out.println(i + ". " + it.next().toString());
+            for(Song song: songList){
+                System.out.println(i + ". " + song.toString());
                 i++;
             }
         } else {
-            System.out.println("Аудиозаписей нет\n");
+            System.out.println(noSongs);;
         }
     }
 
+    //Общая продолжительность всего списка песен
     public static long getCommonLengthLong(LinkedList<Song> songList) {
         long result = 0;
         for (Song song : songList) {
@@ -48,16 +50,15 @@ public class SongList {
 
     public static void addSongFromConsole(LinkedList<Song> songList) {
         Scanner in = new Scanner(System.in);
-        System.out.println("Введите автора песни... ");
+        System.out.println(addingSong[0]);
         String author = in.nextLine();
-        System.out.println("Введите название... ");
+        System.out.println(addingSong[1]);
         String title = in.nextLine();
-        System.out.println("Введите жанр... ");
+        System.out.println(addingSong[2]);
         String genre = in.nextLine();
-        System.out.println("Введите формат... ");
+        System.out.println(addingSong[3]);
         String format = in.nextLine();
-        System.out.println("Введите продолжительность...\n" +
-                "\tИспользуйте формат \"минуты:секунды\" ");
+        System.out.println(addingSong[4]);
         Pattern patterLength = Pattern.compile("^([0-9]{1,5}):[0-5][0-9]$");
         String length = in.nextLine();
         Matcher matcher = patterLength.matcher(length);
@@ -68,25 +69,26 @@ public class SongList {
             matcher = patterLength.matcher(length);
         }
 
-        System.out.println("Введите битрейт... ");
+        System.out.println(addingSong[5]);
         int bitrate = 0;
         while (bitrate == 0) {
             try {
                 bitrate = in.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println("Проверьте правильность ввода битрейта и повторите попытку");
+                System.out.println(repeatEntering);
                 in.next();
             }
         }
 
         Song song = new Song(author, title, genre, format, length, bitrate);
         int i = 0;
-        Iterator it = songList.iterator();
-        while (it.hasNext()) {
-            if (it.next().equals(song)) {
+
+        for(Song songg: songList){
+            if(songg.equals(song)){
                 i++;
             }
         }
+
         if (i == 0) {
             songList.add(song);
             System.out.println("Аудиозапись "+ song.toString() +" успешно добавлена");
@@ -96,7 +98,6 @@ public class SongList {
     }
 
     //todo добавление из json
-
     public static void addSongFromTXT(LinkedList<Song> songList, String path){
 
         try {
@@ -113,9 +114,8 @@ public class SongList {
 
                 Song song = new Song(author, title, genre, format, length, bitrate);
                 int i = 0;
-                Iterator it = songList.iterator();
-                while (it.hasNext()) {
-                    if (it.next().equals(song)) {
+                for(Song songg: songList){
+                    if(songg.equals(song)){
                         i++;
                     }
                 }
@@ -182,7 +182,5 @@ public class SongList {
         } catch (IOException e) {
             System.out.println("IO Error!");
         }
-
-
     }
 }
