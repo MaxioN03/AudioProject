@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<songList>
+    <song>
+        <author>MaxioN</author>
+        <title>Deadline</title>
+        <genre>Deep House</genre>
+        <format>wav</format>
+        <length>3:17</length>
+        <bitrate>312</bitrate>
+    </song>
+    <song>
+        <author>The Doors</author>
+        <title>Riders On The Storm</title>
+        <genre>Blues</genre>
+        <format>mp3</format>
+        <length>7:03</length>
+        <bitrate>256</bitrate>
+    </song>
+</songList>

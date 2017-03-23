@@ -1,0 +1,22 @@
+{
+	"songList": {
+		"song": [
+			{
+				"author": "MaxioN",
+				"title": "Deadline",
+				"genre": "Deep House",
+				"format": "wav",
+				"length": "3:17",
+				"bitrate": "312"
+			},
+			{
+				"author": "The Doors",
+				"title": "Riders On The Storm",
+				"genre": "Blues",
+				"format": "mp3",
+				"length": "7:03",
+				"bitrate": "256"
+			}
+		]
+	}
+}
