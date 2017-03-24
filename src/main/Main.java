@@ -25,12 +25,13 @@ import static main.MenuPoints.showMenuSort;
 public class Main {
     private LinkedList<Song> songListCommon = new LinkedList<Song>();
     private LinkedList<CD> cdListCommon = new LinkedList<CD>();
+    private static boolean exit = false;
 
     public static void main(String[] args) {
 
         //runner
         Main main = new Main();
-        while (true) {
+        while (!exit) {
             MenuPoints.showMenuMain();
             main.doMainMenu(chooseNumber(0, MAIN_MENU_ITEMS));
         }
@@ -63,7 +64,7 @@ public class Main {
                 System.out.println(searchSong());
                 break;
             case 0:
-                System.exit(0);
+                exit=true;
                 break;
             default:
                 System.out.println("Неверное значение");
