@@ -1,9 +1,6 @@
 package disk;
 
-import java.util.InputMismatchException;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.*;
 
 import static audio.SongConstants.repeatEntering;
 import static disk.CDConstants.addingCD;
@@ -17,7 +14,7 @@ import static disk.CDConstants.noCD;
 //Класс для работы со списком CD
 public class CDList {
 
-    public static void showCDList(LinkedList<CD> cdList) {
+    public static void showCDList(List<CD> cdList) {
         if (cdList.size() > 0) {
             int i = 1;
             System.out.println(allCD);
@@ -31,7 +28,7 @@ public class CDList {
         }
     }
 
-    public static void addCDFromConsole(LinkedList<CD> cdList) {
+    public static void addCDFromConsole(List<CD> cdList) {
         Scanner in = new Scanner(System.in);
         System.out.println(addingCD[0]);
         String name = in.nextLine();

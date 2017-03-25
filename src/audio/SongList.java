@@ -26,7 +26,7 @@ import static audio.SongConstants.*;
 
 //Класс для работы со списком Song
 public class SongList {
-    public static void showSongListCommon(LinkedList<Song> songList) {
+    public static void showSongListCommon(List<Song> songList) {
         if (songList.size() > 0) {
             int i = 1;
             System.out.println("Список всех аудиозаписей:");
@@ -40,7 +40,7 @@ public class SongList {
     }
 
     //Общая продолжительность всего списка песен
-    public static long getCommonLengthLong(LinkedList<Song> songList) {
+    public static long getCommonLengthLong(List<Song> songList) {
         long result = 0;
         for (Song song : songList) {
             result += song.getLengthLong();
@@ -48,7 +48,7 @@ public class SongList {
         return result;
     }
 
-    public static void addSongFromConsole(LinkedList<Song> songList) {
+    public static void addSongFromConsole(List<Song> songList) {
         Scanner in = new Scanner(System.in);
         System.out.println(addingSong[0]);
         String author = in.nextLine();
@@ -98,7 +98,7 @@ public class SongList {
     }
 
     //todo добавление из json
-    public static void addSongFromTXT(LinkedList<Song> songList, String path){
+    public static void addSongFromTXT(List<Song> songList, String path){
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(path), Charset.defaultCharset());
@@ -133,7 +133,7 @@ public class SongList {
 
     }
 
-    public static void addSongFromXML(LinkedList<Song> songList, String path){
+    public static void addSongFromXML(List<Song> songList, String path){
         final File xmlFile = new File(System.getProperty("user.dir")
                 + File.separator + path);
         try {

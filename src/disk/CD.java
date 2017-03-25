@@ -24,8 +24,8 @@ public class CD extends Disk {
         this.songList = songList;
     }
 
-    public LinkedList<Song> getSongsFromCD() {
-        LinkedList<Song> songs = new LinkedList<Song>();
+    public List<Song> getSongsFromCD() {
+        List<Song> songs = new LinkedList<Song>();
 
         for (Song song : songList) {
             songs.add(song);
