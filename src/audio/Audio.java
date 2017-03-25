@@ -88,32 +88,6 @@ public class Audio {
                 ", bitrate=" + bitrate +
                 '}';
     }
-
-    public static Audio addAudioFromConsole(){
-        Scanner in = new Scanner(System.in);
-        System.out.println("Введите название... ");
-        String title = in.nextLine();
-        System.out.println("Введите формат... ");
-        String format = in.nextLine();
-        System.out.println("Введите продолжительность... ");
-        String length = in.nextLine();
-        System.out.println("Введите битрейт... ");
-        int bitrate = 0;
-        while(bitrate == 0 ){
-            try
-            {
-                bitrate= in.nextInt();
-            }
-            catch (InputMismatchException e)
-            {
-                System.out.println("Проверьте правильность ввода и повторите попытку");
-                in.next();
-            }
-        }
-
-        Audio audio = new Audio(title,format,length,bitrate);
-        return audio;
-    }
 }
 
 
