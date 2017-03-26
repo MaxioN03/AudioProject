@@ -49,55 +49,56 @@ public class SongList {
     }
 
     public static void addSongFromConsole(List<Song> songList) {
+
         Scanner in = new Scanner(System.in);
-        System.out.println(addingSong[0]);
-        String author = in.nextLine();
-        System.out.println(addingSong[1]);
-        String title = in.nextLine();
-        System.out.println(addingSong[2]);
-        String genre = in.nextLine();
-        System.out.println(addingSong[3]);
-        String format = in.nextLine();
-        System.out.println(addingSong[4]);
-        Pattern patterLength = Pattern.compile("^([0-9]{1,5}):[0-5][0-9]$");
-        String length = in.nextLine();
-        Matcher matcher = patterLength.matcher(length);
-        while (!matcher.matches()) {
-            System.out.println("Неверный формат продолжительности!\n" +
-                    "\tИспользуйте формат \"минуты:секунды\"");
-            length = in.nextLine();
-            matcher = patterLength.matcher(length);
-        }
-
-        System.out.println(addingSong[5]);
-        int bitrate = 0;
-        while (bitrate == 0) {
-            try {
-                bitrate = in.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println(repeatEntering);
-                in.next();
+            System.out.println(addingSong[0]);
+            String author = in.nextLine();
+            System.out.println(addingSong[1]);
+            String title = in.nextLine();
+            System.out.println(addingSong[2]);
+            String genre = in.nextLine();
+            System.out.println(addingSong[3]);
+            String format = in.nextLine();
+            System.out.println(addingSong[4]);
+            Pattern patterLength = Pattern.compile("^([0-9]{1,5}):[0-5][0-9]$");
+            String length = in.nextLine();
+            Matcher matcher = patterLength.matcher(length);
+            while (!matcher.matches()) {
+                System.out.println("Неверный формат продолжительности!\n" +
+                        "\tИспользуйте формат \"минуты:секунды\"");
+                length = in.nextLine();
+                matcher = patterLength.matcher(length);
             }
-        }
 
-        Song song = new Song(author, title, genre, format, length, bitrate);
-        int i = 0;
-
-        for(Song songg: songList){
-            if(songg.equals(song)){
-                i++;
+            System.out.println(addingSong[5]);
+            int bitrate = 0;
+            while (bitrate == 0) {
+                try {
+                    bitrate = in.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println(repeatEntering);
+                    in.next();
+                }
             }
-        }
 
-        if (i == 0) {
-            songList.add(song);
-            System.out.println("Аудиозапись "+ song.toString() +" успешно добавлена");
-        } else {
-            System.out.println("Ошибка! Аудиозапись "+ song.toString() +" уже существует");
-        }
+            Song song = new Song(author, title, genre, format, length, bitrate);
+            int i = 0;
+
+            for(Song songg: songList){
+                if(songg.equals(song)){
+                    i++;
+                }
+            }
+
+            if (i == 0) {
+                songList.add(song);
+                System.out.println("Аудиозапись "+ song.toString() +" успешно добавлена");
+            } else {
+                System.out.println("Ошибка! Аудиозапись "+ song.toString() +" уже существует");
+            }
+
     }
 
-    //todo добавление из json
     public static void addSongFromTXT(List<Song> songList, String path){
 
         try {
@@ -160,9 +161,8 @@ public class SongList {
 
                     Song song = new Song(author, title, genre, format, length, bitrate);
                     int j = 0;
-                    Iterator it = songList.iterator();
-                    while (it.hasNext()) {
-                        if (it.next().equals(song)) {
+                    for(Song songg: songList){
+                        if (songg.equals(song)) {
                             j++;
                         }
                     }

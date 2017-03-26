@@ -1,5 +1,8 @@
 package main;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -13,20 +16,22 @@ public class MenuChoices {
 
     public static int chooseNumber(int min, int max) {
         Scanner in = new Scanner(System.in);
-        int choise = min-1;
-        while (choise == min-1) {
+        int choise = min - 1;
+
+        while (choise == min - 1) {
             try {
-                choise = in.nextInt();
+                choise = Integer.valueOf(in.next());
             } catch (InputMismatchException e) {
                 System.out.println(repeatEntering);
-                in.next();
+                in.nextInt();
             }
             if (choise < min || choise > max) {
                 System.out.println(repeatEntering);
-                choise = min-1;
+                choise = min - 1;
             }
         }
         return choise;
+
     }
 
     public static int chooseNumberAfterZero() {

@@ -5,8 +5,12 @@ import audio.SongList;
 import disk.CD;
 import disk.CDList;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 import static main.MenuChoices.chooseNumber;
 import static main.MenuPoints.MAIN_MENU_ITEMS;
@@ -23,7 +27,8 @@ public class Main {
         Main main = new Main();
         while (!exit) {
             MenuPoints.showMenuMain();
-            main.doMainMenu(chooseNumber(0, MAIN_MENU_ITEMS));
+            int choise = chooseNumber(0, MAIN_MENU_ITEMS);
+            main.doMainMenu(choise);
         }
     }
 
@@ -73,7 +78,6 @@ public class Main {
                 break;
             case 0:
                 break;
-
         }
     }
 
