@@ -20,18 +20,18 @@ public class MenuChoices {
 
         while (choise == min - 1) {
             try {
-                choise = Integer.valueOf(in.next());
+                choise = in.nextInt();
+                if (choise < min || choise > max) {
+                    System.out.println(repeatEntering);
+                    choise = min - 1;
+                }
             } catch (InputMismatchException e) {
                 System.out.println(repeatEntering);
-                in.nextInt();
+                in.next();
             }
-            if (choise < min || choise > max) {
-                System.out.println(repeatEntering);
-                choise = min - 1;
-            }
+
         }
         return choise;
-
     }
 
     public static int chooseNumberAfterZero() {

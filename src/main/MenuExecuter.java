@@ -44,6 +44,12 @@ public class MenuExecuter {
         } else return false;
     }
 
+    public static boolean isEmptyCDList(List<CD> cdListCommon) {
+        if (cdListCommon.isEmpty()) {
+            return true;
+        } else return false;
+    }
+
     //Запись Song на CD
     protected static void addSongToCD(List<Song> songListCommon, List<CD> cdListCommon) {
         if (isEmptySongListOrCDList(songListCommon, cdListCommon)) {
@@ -68,13 +74,17 @@ public class MenuExecuter {
 
     //Вывод конкретного CD
     public static void showCD(List<CD> cdListCommon) {
-        System.out.println("Выберите CD для просмотра:");
-        CDList.showCDList(cdListCommon);
+        if (isEmptyCDList(cdListCommon)) {
+            System.out.println("Нету доступных CD");
+        } else {
+            System.out.println("Выберите CD для просмотра:");
+            CDList.showCDList(cdListCommon);
 
-        int choiseCD = chooseNumber(1, cdListCommon.size()) - 1;
+            int choiseCD = chooseNumber(1, cdListCommon.size()) - 1;
 
-        System.out.println("Список аудиозаписей для CD \"" + cdListCommon.get(choiseCD).getName() + "\":\n");
-        System.out.println(cdListCommon.get(choiseCD).getSongsFromCD());
+            System.out.println("Список аудиозаписей для CD \"" + cdListCommon.get(choiseCD).getName() + "\":\n");
+            System.out.println(cdListCommon.get(choiseCD).getSongsFromCD());
+        }
     }
 
     public static void sortSong(List<Song> songListCommon) {
