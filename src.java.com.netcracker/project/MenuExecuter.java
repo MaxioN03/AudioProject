@@ -1,4 +1,4 @@
-package main;
+package project;
 
 import audio.Song;
 import audio.SongList;
@@ -14,9 +14,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-import static main.MenuChoices.chooseNumber;
-import static main.MenuChoices.chooseNumberAfterZero;
-import static main.MenuPoints.showMenuSort;
+import static project.MenuChoices.chooseNumber;
+import static project.MenuChoices.chooseNumberAfterZero;
+import static project.MenuPoints.showMenuSort;
 
 public class MenuExecuter {
 

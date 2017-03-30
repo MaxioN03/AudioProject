@@ -6,6 +6,7 @@ import static audio.SongConstants.repeatEntering;
 import static disk.CDConstants.addingCD;
 import static disk.CDConstants.allCD;
 import static disk.CDConstants.noCD;
+import static project.MenuChoices.chooseNumberAfterZero;
 
 /**
  * Created by Егор on 20.03.17.
@@ -33,15 +34,7 @@ public class CDList {
         System.out.println(addingCD[0]);
         String name = in.nextLine();
         System.out.println(addingCD[1]);
-        int capacity = 0;
-        while (capacity == 0) {
-            try {
-                capacity = in.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println(repeatEntering);
-                in.next();
-            }
-        }
+        int capacity = chooseNumberAfterZero();
 
         cdList.add(new CD(capacity, name));
     }

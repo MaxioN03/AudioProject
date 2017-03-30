@@ -1,19 +1,15 @@
-package main;
+package project;
 
 import audio.Song;
 import audio.SongList;
 import disk.CD;
 import disk.CDList;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 
-import static main.MenuChoices.chooseNumber;
-import static main.MenuPoints.MAIN_MENU_ITEMS;
+import static project.MenuChoices.chooseNumber;
+import static project.MenuPoints.MAIN_MENU_ITEMS;
 
 /**
  * Created by Егор on 18.03.17.

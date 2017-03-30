@@ -1,4 +1,4 @@
-package main;
+package project;
 
 /**
  * Created by Егор on 23.03.17.
